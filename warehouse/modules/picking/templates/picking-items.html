@@ -1,0 +1,27 @@
+{% from itertools import groupby %}
+{% for grouping, locations in groupby(item_list, key=lambda item: (item.item, item.manu)) %}
+	{% set location_list = [] %}
+	{% set scanned_count = 0 %}
+	{% for _, _, location, status in locations %}
+		{{ '' if location_list.append((location, status)) is None else '' }}
+		{% set scanned_count += 1 if status in ["Scanned", "Pulled", "Found"] else 0 %}
+	{% end %}
+	{% if scanned_count == len(location_list) %}
+		<button class="completed">
+	{% else %}
+		<button>
+	{% end %}
+			<h4>{{ grouping[0] }}</h4>
+			<h4>{{ grouping[1] }}</h4>
+			<hr>
+			<div class="button-list">
+				{% for loc, stat in location_list %}
+					{% if stat in ["Scanned", "Pulled", "Found"] %}
+                        <span style="text-decoration: line-through">{{ loc.rstrip(" ") }}</span>
+					{% else %}
+						<span>{{ loc.rstrip(" ") }}</span>
+					{% end %}
+				{% end %}
+			</div>
+		</button>
+{% end %}

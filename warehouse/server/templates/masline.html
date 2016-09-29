@@ -1,0 +1,24 @@
+{% module Template("header.html", icon_type=icon_type, title="Masline Warehouse") %}
+<div id="message" class="hide"></div>
+<div id="sliding-container">
+	<div id="heading" class="background-blue">
+		{% set menu_display = '' if len(menu_dict) > 1 else 'display: none;' %}
+		<div id="menu-tab" style="{{ menu_display }}"></div>
+		<h1 id="module-title"></h1>
+		<h1 id="data-title"><span></span></h1>
+	</div>
+	<div id="main-app" class="background-metal">
+		<div id="header-notes" class="marquee"></div>
+		<div id="data"></div>
+	</div>
+	<div id="side-menu" class="background-metal">
+		<div id="module-list">
+			{% for module, title in menu_dict %}
+				<button data-module-name="{{ module }}">{{ escape(title) }}</button>
+			{% end %}
+		</div>
+	</div>
+</div>
+<script src="{{ static_url('js/masline.js') }}"></script>
+</body>
+</html>

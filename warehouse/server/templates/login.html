@@ -1,0 +1,9 @@
+{% module Template("header.html", icon_type=icon_type, title="Masline Login") %}
+<div id="login-page" class="background-metal">
+	<img src="{{ static_url('images/masline-logo.png') }}">
+	<h1 id="login-message">{{ 'Scan to Login' if err_msg is None else err_msg }}</h1>
+</div>
+
+<script src="{{ static_url('js/login.js') }}"></script>
+</body>
+</html>

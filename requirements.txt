@@ -1,0 +1,2 @@
+pyodbc==3.0.10
+tornado==4.4.1

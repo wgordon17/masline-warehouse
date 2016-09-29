@@ -1,0 +1,30 @@
+{% from itertools import groupby %}
+<div class="lots">
+	{% for shipping_hedr, shipping_detl in groupby(lines, key=lambda line: (line.ship_no, line.line, line.ship_status, line.note)) %}
+		{% if shipping_hedr[2] == "Printed" %}
+			<div class="ship-grouping">
+		{% else %}
+			<div class="ship-grouping completed">
+		{% end %}
+			<div class="shipping-hedr">
+				<button><h2>{{ shipping_hedr[0] }}: {{ shipping_hedr[1] }}</h2></button>
+				<h2>{{ shipping_hedr[3] }}</h2>
+			</div>
+			{% for _, _, location, _, qty, lot_no, _, lot_status in shipping_detl %}
+				{% if lot_status in ["Scanned", "Pulled", "Found"] %}
+					<button class="completed">
+				{% else %}
+					<button>
+				{% end %}
+						<span>{{ qty }} @ {{ location }}</span>
+						<h6>{{ lot_no }}</h6>
+				</button>
+			{% end %}
+		</div>
+	{% end %}
+</div>
+<div class="item-imgs">
+    {% for img in item_imgs %}
+        <img src="{{ img }}">
+    {% end %}
+</div>
